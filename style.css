@@ -1,0 +1,52 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.calculator_container{
+    display: grid;
+    grid-template-columns: repeat(4,120px);
+    grid-template-rows: auto;
+}
+
+
+#result{
+    grid-column: span 4;
+    padding: 12px;
+    text-align: right;
+    font-family: monospace;
+    font-size: 25px;
+    background-color: #000;
+    color: #fff;
+}
+
+.cal_button{
+    padding: 10px;
+    background-color: #ccc;
+    padding: 15px;
+}
+
+.delte_btn{
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.back_btn{
+    grid-row: span 2;
+    
+}
+
+.div_btn{
+    grid-row: span 2;
+}
+
+.zero_btn{
+    grid-column: span 3;
+}
+
+.op_btn{
+    background-color: orange;
+    color: #fff;
+}
+
