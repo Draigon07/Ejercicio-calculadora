@@ -1,69 +1,96 @@
 //Use parseInt to transform a number to string
 
-const result = document.getElementById('result');
-const btnNum = document.querySelectorAll('.cal_button');
-const opBtn = document.querySelectorAll('.op_btn')
-const deleteBtn = document.querySelector('.delete_btn');
-const sumBtn = document.querySelector('.plus_btn');
-const restBtn = document.querySelector('.rest_btn')
-const divBtn = document.querySelector('.div_btn');
-const multBtn = document.querySelector('.mul_btn');
-const equal = document.querySelector('.equal_btn')
-let answer1 = '';
-let answer2 = ''
-let fAnswer = '';
+let runningTotal = 0;
+let buffer = "0";
+let previusOperator = null;
+const screen = document.querySelector('.screen')
 
 
-
-const innerNum = (el)=>{
-    el.forEach(num =>{
-        console.log(num.textContent);
-        num.addEventListener('click',()=>{
-            answer1 += num.textContent;
-            console.log(answer1)
-            result.innerText = answer1;
-        })
-        
-        
-        deleteBtn.addEventListener('click',()=>{
-            result.textContent = '';
-            answer1 = '';
-            answer2 = ''
-        })
-    })
-
-    sumBtn.addEventListener('click',()=>{
-            answer1 += sumBtn.textContent;
-            console.log(answer1)
-            result.innerText = answer1;
-            sum(answer1,answer1)
-    })
-} 
-
-innerNum(btnNum)
+document.querySelector('.calc_buttons').addEventListener('click',function(e){
+    buttonClick(e.target.innerText)  
+})
 
 
+const buttonClick = (value)=>{
+    console.log(value)
+    if(isNaN(parseInt(value))){
+        handleSymbol(value)
+    }else{
+        handleNumber(value)
+    }
 
+    writeOnScreen()
 
-const sum = (num1,num2)=>{
-    let op = num1 + num2;
-    return op
 }
 
-const res = (num1,num2)=>{
-    let op = num1 - num2;
-    return op
+const  writeOnScreen = ()=>{
+    screen.innerText = buffer;
+}
+
+const handleNumber = (value) =>{
+    if(buffer === "0"){
+        buffer = value;
+    }else{
+        buffer += value;
+        console.log(buffer)
+    }
 }
 
 
-const div = (num1,num2)=>{
-    let op = num1 / num2;
-    return op
+const handleSymbol = (value)=>{
+    switch (value){
+        case "C":
+            buffer = "0"
+            runningTotal = 0;
+            previusOperator = null;
+            break;
+        case "=":
+            if(previusOperator === null){
+                return;
+            }
+            flushOperation(parseInt(buffer))
+            previusOperator = null;
+            buffer = "" + runningTotal
+            runningTotal = 0
+            break; 
+
+        case "←":
+            if(buffer.length === 1){
+                buffer = '0'
+            }else{
+                buffer = buffer.substring(0, buffer.length - 1)
+            }
+            break;
+            default:
+                handleMath(value);
+                break
+        }
 }
 
-const mult = (num1,num2)=>{
-    let op = num1 * num2;
-    return op
+
+const handleMath = (value)=>{
+    const inBuffer = parseInt(buffer);
+    if(runningTotal === 0){
+        runningTotal = inBuffer
+    }else{
+        flushOperation(inBuffer)
+    }
+    
+    previusOperator = value
+    buffer = '0'
+}
+
+const flushOperation = (intBuffer)=>{
+    if(previusOperator === '+'){
+        runningTotal += intBuffer;
+    }else if(previusOperator === "-"){
+        runningTotal -= intBuffer
+    }else if(previusOperator === "X"){
+        runningTotal *= intBuffer
+    }else{
+        runningTotal /= intBuffer
+    }
+
 }
 
 
@@ -75,11 +102,3 @@ const mult = (num1,num2)=>{
 
 
 
-
-
-
-/*const btn = document.querySelector('.button_container')
-btn.addEventListener('click',function(event){
-    alert(`You clicked on button ${event.target.innerText}`)      //Target is where the event happened
-    event.target.innerText = 'Hi'
-})*/

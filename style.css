@@ -4,49 +4,39 @@
     padding: 0;
 }
 
-.calculator_container{
+.calc_buttons{
     display: grid;
     grid-template-columns: repeat(4,120px);
     grid-template-rows: auto;
 }
 
 
-#result{
-    grid-column: span 4;
-    padding: 12px;
+.screen{
+    height: 120px;
+   grid-column: span 4;
+    background-color: black;
+    color: white;
     text-align: right;
-    font-family: monospace;
-    font-size: 25px;
-    background-color: #000;
-    color: #fff;
+    font-size: 40px;
+    padding-right: 5px;
+
 }
 
-.cal_button{
-    padding: 10px;
-    background-color: #ccc;
-    padding: 15px;
+.calc_button{
+   padding: 15px;
+   font-size: 30px;
 }
 
-.delte_btn{
-    grid-row: span 2;
+.calc_op_button{
+    padding: 17px;
+    font-size: 30px;
+    background-color: orange;
+}
+
+.double{
     grid-column: span 2;
 }
 
-.back_btn{
-    grid-row: span 2;
-    
-}
-
-.div_btn{
-    grid-row: span 2;
-}
-
-.zero_btn{
+.triple{
     grid-column: span 3;
 }
-
-.op_btn{
-    background-color: orange;
-    color: #fff;
-}
-
